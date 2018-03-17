@@ -34,7 +34,7 @@ gmm.predict(X)
 [Original paper](http://www.machinelearning.ru/wiki/images/d/dc/Vetrov-ArdEm-JVMMF-2009.pdf)
 
 ## Author
-Artem Ryzhikov, LAMBDA laboratory, Highest School of Economics, Yandex School of Data Analysis
+Artem Ryzhikov, LAMBDA laboratory, Higher School of Economics, Yandex School of Data Analysis
 
 **E-mail:** artemryzhikoff@yandex.ru
 
