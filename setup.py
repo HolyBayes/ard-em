@@ -7,7 +7,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 
 def find_version():
-    with io.open(os.path.join(here, 'ard_em', '__init__.py'), 'r') as f:
+    with io.open(os.path.join(here, '__init__.py'), 'r') as f:
         version_file = f.read()
 
     # The version line must have the form like following:
@@ -43,8 +43,6 @@ setup(
     license='Apache-2.0 License',
 
     # Manually specifying all packages
-    packages=['ard_em'],
-    package_dir={'ard_em': 'ard_em'},
     classifiers=[
         'Development Status :: 5 - Production/Stable',
 
@@ -67,5 +65,5 @@ clusters number determination, EM algorithm, Bayes Learning, automatic relevance
     # List run-time dependencies here. These will be installed by pip when your
     # project is installed.
     install_requires=requirements,
-
+    py_modules=['ard_em']
 )
