@@ -43,7 +43,7 @@ setup(
     license='Apache-2.0 License',
 
     # Manually specifying all packages
-    packages=['ard_em', 'ard_em.code'],
+    packages=['ard_em'],
     package_dir={'ard_em': 'ard_em'},
     classifiers=[
         'Development Status :: 5 - Production/Stable',
