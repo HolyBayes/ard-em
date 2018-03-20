@@ -7,7 +7,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 
 def find_version():
-    with io.open(os.path.join(here, 'ard-em', '__init__.py'), 'r') as f:
+    with io.open(os.path.join(here, 'ard_em', '__init__.py'), 'r') as f:
         version_file = f.read()
 
     # The version line must have the form like following:
@@ -28,7 +28,7 @@ with io.open(os.path.join(here, 'requirements.txt')) as f:
     requirements = f.read().split('\n')
 
 setup(
-    name="ard-em",
+    name="ard_em",
     version=find_version(),
     description="ARD EM package",
     long_description="ARD (Automatic Relevance Determination) EM algorithm for gaussian mixture separation/clustering\
@@ -43,8 +43,8 @@ setup(
     license='Apache-2.0 License',
 
     # Manually specifying all packages
-    packages=['ard-em'],
-    package_dir={'ard-em': 'ard-em'},
+    packages=['ard_em'],
+    package_dir={'ard_em': 'ard_em'},
     classifiers=[
         'Development Status :: 5 - Production/Stable',
 
