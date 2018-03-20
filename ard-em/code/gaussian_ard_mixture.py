@@ -6,8 +6,9 @@ from sklearn.exceptions import ConvergenceWarning
 from sklearn.utils import check_random_state
 from sklearn.mixture.base import _check_X
 import warnings
-from numpy.linalg import LinAlgError
 
+# import logging
+# logging.basicConfig(format='[%(levelname)s] %(asctime)s: %(message)s', level=logging.INFO)
 
 
 def _estimate_ard_parameters(X, w_old, reg_weights, resp, reg_covar, covariance_type):
@@ -157,7 +158,7 @@ class ArdGaussianMixture(GaussianMixture):
   
     max_lower_bound = -np.infty
     self.converged_ = False
-  
+    
     random_state = check_random_state(self.random_state)
   
     n_samples, _ = X.shape
@@ -167,7 +168,7 @@ class ArdGaussianMixture(GaussianMixture):
       if do_init:
         self._initialize_parameters(X, random_state)
         self.lower_bound_ = -np.infty
-    
+      
       for n_iter in range(self.max_iter):
         # ARD EM
         prev_lower_bound = self.lower_bound_
@@ -179,37 +180,37 @@ class ArdGaussianMixture(GaussianMixture):
         # The responsibilities for each data sample in X.
         
         # update covariance
-        F = (1./(np.diag(np.dot(resp, self.weights_)) + 1e-8)) ** 2 # array-like, shape (n_samples, n_samples)
+        F = np.diag(1./(np.dot(resp, self.weights_) ** 2))
+        # F = (1./(np.diag(np.dot(resp, self.weights_)) + 1e-4)) ** 2 # array-like, shape (n_samples, n_samples)
         A = np.diag(self.reg_weights_) # array-like, shape (n_components, n_components)
         H = np.dot(np.dot(resp.T, F), resp) + A
-        S = np.vstack([np.diag(np.ones(self.n_components)), np.ones(self.n_components)])
-        try:
-          Sigma = np.linalg.inv(np.dot(np.dot(S, H), S.T))
-        except LinAlgError:
-          break
+        S = np.vstack([np.diag(np.ones(self.n_components-1)), -1.0 * np.ones(self.n_components-1)])
+        Sigma = np.linalg.inv(np.dot(np.dot(S.T, H), S))
         idx = np.arange(self.n_components - 1)
         
+        # update weights
         self.reg_weights_ = np.hstack([
-          (1 - self.reg_weights_[idx] * Sigma[idx, idx]) / self.weights_[idx] ** 2,
+          (1 - self.reg_weights_[idx] * Sigma[idx, idx]) / (self.weights_[idx] ** 2),
           (1 - self.reg_weights_[-1] * Sigma.sum()) / self.weights_[-1] ** 2
         ])
-        
+
         # drop extra components
-        idx = np.argwhere(np.logical_and(self.reg_weights_ < self.alpha_bound, self.weights_ > self.weight_bound)).squeeze()
-        self.weights_ = self.weights_[idx]
-        self.reg_weights_ = self.reg_weights_[idx]
-        self.means_ = self.means_[idx, :]
-        if self.covariance_type != 'tied':
-          self.covariances_ = self.covariances_[idx]
-          self.precisions_cholesky_ = self.precisions_cholesky_[idx]
-        self.n_components = idx.shape[0]
-        
+        keep_idx = np.argwhere(np.logical_and(self.reg_weights_ < self.alpha_bound, self.weights_ > self.weight_bound)).squeeze()
+        if len(keep_idx) > 0:
+          self.weights_ = self.weights_[keep_idx]
+          self.reg_weights_ = self.reg_weights_[keep_idx]
+          self.means_ = self.means_[keep_idx, :]
+          if self.covariance_type != 'tied':
+            self.covariances_ = self.covariances_[keep_idx]
+            self.precisions_cholesky_ = self.precisions_cholesky_[keep_idx]
+          self.n_components = keep_idx.shape[0]
+          
         # early stop cryterium
         self.lower_bound_ = self._compute_lower_bound(
           log_resp, log_prob_norm)
         change = self.lower_bound_ - prev_lower_bound
         self._print_verbose_msg_iter_end(n_iter, change)
-        if abs(change) < self.tol:
+        if abs(change) < self.tol and len(keep_idx) > 0:
           self.converged_ = True
           break
     
