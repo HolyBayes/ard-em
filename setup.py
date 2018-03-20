@@ -21,7 +21,7 @@ def find_version():
     raise RuntimeError("Unable to find version string.")
 
 
-with io.open(os.path.join(here, 'README.md')) as f:
+with io.open(os.path.join(here, 'Readme.md')) as f:
     long_description = f.read()
 
 with io.open(os.path.join(here, 'requirements.txt')) as f:
