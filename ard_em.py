@@ -58,7 +58,7 @@ def _estimate_ard_parameters(X, w_old, reg_weights, resp, reg_covar, covariance_
   return nk, means, covariances
 
 
-class ArdGaussianMixture(GaussianMixture):
+class GaussianMixtureARD(GaussianMixture):
   
   def __init__(self, init_components='sqrt', alpha_bound=1e3, weight_bound=1e-3,
                covariance_type='full', tol=1e-3,
@@ -72,11 +72,11 @@ class ArdGaussianMixture(GaussianMixture):
     :param alpha_bound: float. Drop all components with weight_reg (alpha) > alpha_bound
     :param weight_bound: float. Drop all components with weight < weight_bound
     """
-    super(ArdGaussianMixture, self).__init__(1, covariance_type, tol,
-               reg_covar, max_iter, n_init, init_params,
-               weights_init, means_init, precisions_init,
-               random_state, warm_start,
-               verbose, verbose_interval)
+    super(GaussianMixtureARD, self).__init__(1, covariance_type, tol,
+                                             reg_covar, max_iter, n_init, init_params,
+                                             weights_init, means_init, precisions_init,
+                                             random_state, warm_start,
+                                             verbose, verbose_interval)
     self.init_components = init_components
     self.alpha_bound = alpha_bound
     self.weight_bound = weight_bound

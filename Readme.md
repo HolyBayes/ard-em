@@ -6,7 +6,7 @@ excels him. In addition, clustering with ARD EM is closer to the true than the a
 character of the minimum description length. It's EM algorithm with automatic determination of number of components. It's powerful and fast algorithm for gaussian mixture learning and clustering with unknown number of components.
 
 # Implementation
-The implemented [ArdGaussianMixture](ard_em.py) class has the same interface as SkLearn's [GaussianMixture](http://scikit-learn.org/stable/modules/generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture) one, but with 3 additional parameters:
+The implemented [GaussianMixtureARD](ard_em.py) class has the same interface as SkLearn's [GaussianMixture](http://scikit-learn.org/stable/modules/generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture) one, but with 3 additional parameters:
 ```python
 init_components="sqrt" # Initial number of components. sqrt(N) if "sqrt"
 alpha_bound=1e3 # Drop all components with weight_reg (alpha) > alpha_bound
@@ -21,8 +21,8 @@ pip install git+https://github.com/Leensman/ard-em.git
 
 ## Example
 ```python
-from ard_em import ArdGaussianMixture
-gmm = ArdGaussianMixture()
+from ard_em import GaussianMixtureARD
+gmm = GaussianMixtureARD()
 gmm = gmm.fit(X)
 print('Bayesian information criterion: ', gmm.bic(X))
 best_n_components = gmm.n_components
