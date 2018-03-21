@@ -30,9 +30,8 @@ with io.open(os.path.join(here, 'requirements.txt')) as f:
 setup(
     name="ard_em",
     version=find_version(),
-    description="ARD EM package",
-    long_description="ARD (Automatic Relevance Determination) EM algorithm for gaussian mixture separation/clustering\
-        with automatic determination of components/clusters number.",
+    description="ARD EM algorithm with automatic determination of components/clusters number",
+    long_description=long_description,
     url='https://github.com/Leensman/ard-em',
 
     # Author details
