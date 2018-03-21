@@ -15,6 +15,11 @@ weight_bound=1e-3 # Drop all components with weight < weight_bound
 and without **n_components** one.
 
 # Installation
+Stable release
+```
+pip install ard-em
+```
+Develop
 ```
 pip install git+https://github.com/Leensman/ard-em.git
 ```
