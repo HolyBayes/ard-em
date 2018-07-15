@@ -36,14 +36,14 @@ gmm.predict(X)
 ```
 For more examples go to [GaussianMixture.ipynb](https://github.com/Leensman/ard-em/blob/master/ard-em/examples/Gaussian%20mixture.ipynb)
 
-## Links
+## Authors
 [Original paper](http://www.machinelearning.ru/wiki/images/d/dc/Vetrov-ArdEm-JVMMF-2009.pdf)
 
-## Author
+## Contacts
 Artem Ryzhikov, LAMBDA laboratory, Higher School of Economics, Yandex School of Data Analysis
 
 **E-mail:** artemryzhikoff@yandex.ru
 
 **Linkedin:** https://www.linkedin.com/in/artem-ryzhikov-2b6308103/
 
-**HSE profile:** https://www.hse.ru/org/persons/190912317
+**Link:** https://www.hse.ru/org/persons/190912317
