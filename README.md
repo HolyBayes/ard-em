@@ -34,7 +34,7 @@ best_n_components = gmm.n_components
 print('Best number of components: ', best_n_components)
 gmm.predict(X)
 ```
-For more examples go to [GaussianMixture.ipynb](examples/Gaussian mixture.ipynb)
+For more examples go to [GaussianMixture.ipynb](examples/Gaussian%20mixture.ipynb)
 
 ## Authors
 [Original paper](http://www.machinelearning.ru/wiki/images/d/dc/Vetrov-ArdEm-JVMMF-2009.pdf)
